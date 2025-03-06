@@ -28,7 +28,17 @@ Feature: Register
     And Verify 'New User Signup!' is visible
     When Enter name and email address
     And Click 'Signup' button
-    And Verify that 'ENTER ACCOUNT INFORMATION' is visible
+    Then Verify that 'Email Address already exist!' is visible
+
+  Scenario: Register user with name registered
+    Given launched browser
+    And navigate to homepage
+    And verify that home page is visible successfully
+    And Click on 'Signup / Login' button
+    And Verify 'New User Signup!' is visible
+    When Enter name and email address
+    And Click 'Signup' button
+    And Verify that 'Email Address already exist!' is visible
     And Fill details: Title, Name, Email, Password, Date of birth
     And Select checkbox 'Sign up for our newsletter!'
     And Select checkbox 'Receive special offers from our partners!'
