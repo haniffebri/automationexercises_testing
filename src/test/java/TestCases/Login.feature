@@ -76,6 +76,17 @@ Feature: Login
     And Click 'login' button
     Then Verify 'Please fill out this field.' is visible
 
+  Scenario: Login user with Invalid Email Format (Missing @example.com)
+    Given launched browser
+    And navigate to homepage
+    And verify that home page is visible successfully
+    And Click on 'Signup / Login' button
+    And Verify 'Login to your account' is visible
+    And User fill email with invalid format (missing @example.com)
+    And User fill correct password
+    And Click 'login' button
+    Then Verify that 'Please include an '@' in the email address. 'email' is missing an '@'.' is visible
+
   Scenario: Login user with correct email and password
     Given launched browser
     And navigate to homepage

@@ -133,6 +133,17 @@ Feature: Register
     And Click 'Signup' button
     Then Verify that 'Email Address already exist!' is visible
 
+  Scenario: Register user with Invalid Email Format (Missing @example.com)
+    Given launched browser
+    And navigate to homepage
+    And verify that home page is visible successfully
+    And Click on 'Signup / Login' button
+    And Verify 'New User Signup!' is visible
+    When Fill name
+    And Fill email with invalid format (missing @example.com)
+    And Click 'Signup' button
+    Then Verify that 'Please include an '@' in the email address. 'email' is missing an '@'.' is visible
+
   Scenario: Register user with registered name
     Given launched browser
     And navigate to homepage
@@ -177,6 +188,19 @@ Feature: Register
     And Fill email registered
     And Click 'Signup' button
     Then Verify that 'Email Address already exist!' is visible
+
+  Scenario: Register with Unregistered Email and Name Without Filling Account and Address Information
+    Given launched browser
+    And navigate to homepage
+    And verify that home page is visible successfully
+    And Click on 'Signup / Login' button
+    And Verify 'New User Signup!' is visible
+    When Fill name registered
+    And Fill email unregistered
+    And Click 'Signup' button
+    And Verify that 'ENTER ACCOUNT INFORMATION' is visible
+    And Click 'Create Account button'
+    Then Verify that 'Please fill out this field' is visible
 
   Scenario: Register with Unregistered Email and Name Without Filling Account and Address Information
     Given launched browser
