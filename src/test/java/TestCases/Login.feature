@@ -46,4 +46,45 @@ Feature: Login
     And Click 'login' button
     Then Verify error 'Your email or password is incorrect!' is visible
 
-    
+  Scenario: Login user without fill email
+    Given launched browser
+    And navigate to homepage
+    And verify that home page is visible successfully
+    And Click on 'Signup / Login' button
+    And Verify 'Login to your account' is visible
+    And User fill correct password
+    And Click 'login' button
+    Then Verify 'Please fill out this field.' is visible
+
+  Scenario: Login user without fill password
+    Given launched browser
+    And navigate to homepage
+    And verify that home page is visible successfully
+    And Click on 'Signup / Login' button
+    And Verify 'Login to your account' is visible
+    And User fill correct email
+    And Click 'login' button
+    Then Verify 'Please fill out this field.' is visible
+
+  Scenario: Login user without fill email and password
+    Given launched browser
+    And navigate to homepage
+    And verify that home page is visible successfully
+    And Click on 'Signup / Login' button
+    And Verify 'Login to your account' is visible
+    And User fill correct email
+    And Click 'login' button
+    Then Verify 'Please fill out this field.' is visible
+
+  Scenario: Login user with correct email and password
+    Given launched browser
+    And navigate to homepage
+    And verify that home page is visible successfully
+    And Click on 'Signup / Login' button
+    And Verify 'Login to your account' is visible
+    When User fill correct email
+    And User fill correct password
+    And Click 'login' button
+    Then Verify that 'Logged in as username' is visible
+    When Click 'Delete Account' button
+    Then Verify that 'ACCOUNT DELETED!' is visible
