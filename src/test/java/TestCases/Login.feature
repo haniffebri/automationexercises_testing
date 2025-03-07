@@ -46,7 +46,7 @@ Feature: Login
     And Click 'login' button
     Then Verify error 'Your email or password is incorrect!' is visible
 
-  Scenario: Login user without fill email
+  Scenario: Login user without filling email
     Given launched browser
     And navigate to homepage
     And verify that home page is visible successfully
@@ -56,7 +56,7 @@ Feature: Login
     And Click 'login' button
     Then Verify 'Please fill out this field.' is visible
 
-  Scenario: Login user without fill password
+  Scenario: Login user without filling password
     Given launched browser
     And navigate to homepage
     And verify that home page is visible successfully
@@ -66,7 +66,7 @@ Feature: Login
     And Click 'login' button
     Then Verify 'Please fill out this field.' is visible
 
-  Scenario: Login user without fill email and password
+  Scenario: Login user without filling email and password
     Given launched browser
     And navigate to homepage
     And verify that home page is visible successfully
