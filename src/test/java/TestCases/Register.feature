@@ -14,7 +14,7 @@ Feature: Register
     Given launched browser
     And navigate to homepage
     And verify that home page is visible successfully
-    And user click on Signup / Login button
+    And user click on Signup button
     And Verify New User Signup! is visible
     When user input email "yourEmail"
     And user click Signup button
@@ -24,7 +24,7 @@ Feature: Register
     Given launched browser
     And navigate to homepage
     And verify that home page is visible successfully
-    And user click on Signup / Login button
+    And user click on Signup button
     And Verify New User Signup! is visible
     When user input registered name "yourName"
     And user input unregistered email "yourEmail"
@@ -56,7 +56,7 @@ Feature: Register
     Given launched browser
     And navigate to homepage
     And verify that home page is visible successfully
-    And user click on Signup / Login button
+    And user click on Signup button
     And Verify New User Signup! is visible
     When user input unregistered name "yourName"
     And user input registered email "yourEmail"
@@ -67,7 +67,7 @@ Feature: Register
     Given launched browser
     And navigate to homepage
     And verify that home page is visible successfully
-    And user click on Signup / Login button
+    And user click on Signup button
     And Verify New User Signup! is visible
     When user input unregistered name "yourName"
     And user input unregistered email "yourEmail"
@@ -99,7 +99,7 @@ Feature: Register
     Given launched browser
     And navigate to homepage
     And verify that home page is visible successfully
-    And Click on Signup / Login button
+    And user click on Signup button
     And Verify New User Signup! is visible
     When Fill name
     And Fill email registered
@@ -110,7 +110,7 @@ Feature: Register
     Given launched browser
     And navigate to homepage
     And verify that home page is visible successfully
-    And user click on Signup / Login button
+    And user click on Signup button
     And Verify New User Signup! is visible
     When user input registered name "yourName"
     And user input unregistered email "yourEmail"
@@ -142,7 +142,7 @@ Feature: Register
     Given launched browser
     And navigate to homepage
     And verify that home page is visible successfully
-    And user click on Signup / Login button
+    And user click on Signup button
     And Verify New User Signup! is visible
     When user input registered name "yourName"
     And Fill email with invalid format (missing @example.com) "blabla@example.com"
@@ -154,7 +154,7 @@ Feature: Register
     Given launched browser
     And navigate to homepage
     And verify that home page is visible successfully
-    And user click on Signup / Login button
+    And user click on Signup button
     And Verify New User Signup! is visible
     When user input registered name "yourName"
     And user input registered email "yourEmail"
@@ -165,7 +165,7 @@ Feature: Register
     Given launched browser
     And navigate to homepage
     And verify that home page is visible successfully
-    And user click on Signup / Login button
+    And user click on Signup button
     And Verify New User Signup! is visible
     When user input unregistered name "yourName"
     And user input unregistered email "yourEmail"
@@ -178,7 +178,7 @@ Feature: Register
     Given launched browser
     And navigate to homepage
     And verify that home page is visible successfully
-    And Click on Signup / Login button
+    And user click on Signup button
     And Verify New User Signup! is visible
     When user input unregistered name "yourName"
     And user input unregistered email "yourEmail"
