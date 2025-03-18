@@ -1,17 +1,24 @@
 package Logic;
 
+import Helper.utility;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import static Helper.utility.driver;
+
 public class Register_Logic {
     @Given("launched browser")
     public void launchedBrowser() {
+        utility.startDriver();
     }
 
     @And("navigate to homepage")
-    public void navigateToHomepage() {
+    public void navigateToHomepage() throws InterruptedException {
+
+        driver.get("https://www.automationexercise.com/");
+        Thread.sleep(5000);
     }
 
     @And("verify that home page is visible successfully")

@@ -4,6 +4,8 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import static Helper.utility.driver;
+
 public class Login_Logic {
     @And("user click on Login button")
     public void userClickOnLoginButton() {

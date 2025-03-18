@@ -14,11 +14,14 @@ public class utility {
         return driver;
     }
     public static void startDriver() {
+        System.setProperty("webdriver.edge.driver", "D:\\App\\EdgeDriver\\msedgedriver.exe");
+
         EdgeOptions options = new EdgeOptions();
-        //options.addArguments("--headless");
+        options.addArguments("--headless");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--remote-allow-origins=*");
+
         WebDriverManager.edgedriver().setup();
         driver = new EdgeDriver(options);
         driver.manage().window().maximize();
