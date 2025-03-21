@@ -5,10 +5,34 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
+import java.util.NoSuchElementException;
+import java.util.Random;
 import static Helper.utility.driver;
 
 public class Register_Logic {
+
+    private String registeredName;
+    private String unregisteredName;
+    public String generateRandomString(int length) {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"; // Karakter yang digunakan
+        StringBuilder randomString = new StringBuilder();
+        Random rnd = new Random();
+
+        for (int i = 0; i < length; i++) {
+            randomString.append(chars.charAt(rnd.nextInt(chars.length())));
+        }
+
+        return randomString.toString();
+    }
+
+
     @Given("launched browser")
     public void launchedBrowser() {
         utility.startDriver();
@@ -22,38 +46,85 @@ public class Register_Logic {
     }
 
     @And("verify that home page is visible successfully")
-    public void verifyThatHomePageIsVisibleSuccessfully() {
-    }
+    public void verifyThatHomePageIsVisibleSuccessfully() throws InterruptedException {
 
-    @And("Verify New User Signup! is visible")
-    public void verifyNewUserSignupIsVisible() {
-    }
-
-    @When("user input name {string}")
-    public void userFillName(String name) {
-    }
-
-    @And("user click Signup button")
-    public void userClickSignupButton() {
-    }
-
-    @Then("Verify Please fill out this field. is visible")
-    public void verifyPleaseFillOutThisFieldIsVisible() {
+        WebDriverWait wait = new WebDriverWait(utility.getDriver(), Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='item active']//h1[1]")));
+        Thread.sleep(1000);
     }
 
     @And("user click on Signup button")
     public void userClickOnSignupButton() {
-        // Implementasi step
+
+        WebElement logupButton =  driver.findElement(By.xpath("//a[normalize-space()='Signup / Login']"));
+        logupButton.click();
     }
 
-
-    @When("user input email {string}")
-    public void userFillEmail(String arg0) {
+    @And("Verify New User Signup! is visible")
+    public void verifyNewUserSignupIsVisible() {
+        WebDriverWait wait = new WebDriverWait(utility.getDriver(), Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[normalize-space()='New User Signup!']")));
     }
 
     @When("user input registered name {string}")
-    public void userInputRegisteredName(String arg0) {
+    public void userInputRegisteredName(String name) {
+
+        WebElement fillName = driver.findElement(By.xpath("//input[@placeholder='Name']"));
+        fillName.sendKeys(name);
+
+        registeredName = name;
+        System.out.println("Registered Name: " + registeredName);
     }
+
+    @When("user input unregistered name")
+    public void userInputUnregisteredName() {
+
+        String Name = generateRandomString(8);
+        WebElement unregisNameField = driver.findElement(By.xpath("//input[@placeholder='Name']"));
+        unregisNameField.sendKeys(Name);
+
+        unregisteredName = Name;
+        System.out.println("Registered Name: " + unregisteredName);
+    }
+
+    @And("user click Signup button")
+    public void userClickSignupButton() {
+
+        WebElement signupButton = driver.findElement(By.xpath("//button[normalize-space()='Signup']"));
+        signupButton.click();
+    }
+
+    @Then("Verify Please fill out this field. is visible")
+    public void verifyPleaseFillOutThisFieldIsVisible() throws InterruptedException {
+
+        WebElement emailField = driver.findElement(By.xpath("//input[@data-qa='signup-email']"));
+        String validationMessage = emailField.getAttribute("Please fill out this field.");
+        System.out.println("Validation Message : " + validationMessage);
+        utility.quitDriver();
+    }
+
+
+    @When("user input unregistered email")
+    public void userFillEmail() {
+        String randomEmail = generateRandomEmail();
+
+        WebElement fillEmail = driver.findElement(By.xpath("//input[@data-qa='signup-email']"));
+        fillEmail.sendKeys(randomEmail);
+
+        System.out.println("Generated Email : " + randomEmail);
+    }
+
+    public String generateRandomEmail() {
+        String chars = "abcdefghijklmnopqrstuvwxyz1234567890";
+        StringBuilder email = new StringBuilder();
+        Random rnd = new Random();
+
+        for (int i = 0; i < 8; i++) {
+            email.append(chars.charAt(rnd.nextInt(chars.length())));
+        }
+        return email.toString() + "@example.com";
+    }
+
 
     @And("user input unregistered email {string}")
     public void userInputUnregisteredEmail(String arg0) {
@@ -65,6 +136,13 @@ public class Register_Logic {
 
     @And("user select Title")
     public void userSelectTitle() {
+
+        WebDriverWait wait = new WebDriverWait(utility.getDriver(), Duration.ofSeconds(10));
+        WebElement Title = driver.findElement(By.cssSelector("#id_gender1"));
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//b[normalize-space()='Enter Account Information']")));
+        Title.click();
+
     }
 
     @And("user input Name {string}")
@@ -75,88 +153,223 @@ public class Register_Logic {
     public void userInputEmail(String arg0) {
     }
 
-    @And("user input Password {string}")
-    public void userInputPassword(String arg0) {
+    @And("user input Password")
+    public void userInputPassword() {
+
+        String password = generateRandomString(10); // Generate password 10 karakter
+        WebElement passwordField = driver.findElement(By.xpath("//input[@id='password']"));
+        passwordField.sendKeys(password);
+        System.out.println("Generated Password: " + password);
+
     }
 
     @And("user select Date of birth")
     public void userSelectDateOfBirth() {
+
+        WebElement date = driver.findElement(By.xpath("//select[@id='days']"));
+        WebElement month = driver.findElement(By.xpath("//select[@id='months']"));
+        WebElement year = driver.findElement(By.xpath("//select[@id='years']"));
+
+        Select selectDate = new Select(date);
+        Select selectMonth = new Select(month);
+        Select selectYear = new Select(year);
+
+        Random rand = new Random();
+        int randomDate = rand.nextInt(31) + 1;
+        selectDate.selectByIndex(randomDate);
+
+        int randomMonth = rand.nextInt(12) + 1;
+        selectMonth.selectByIndex(randomMonth);
+
+        int minYear = 1900;
+        int maxYear = 2021;
+        int randomYear = rand.nextInt(maxYear - minYear + 1) + minYear;
+        selectYear.selectByVisibleText(String.valueOf(randomYear));
+
+        System.out.println("Selected Date: " + selectDate.getFirstSelectedOption().getText());
+        System.out.println("Selected Month: " + selectMonth.getFirstSelectedOption().getText());
+        System.out.println("Selected Year: " + selectYear.getFirstSelectedOption().getText());
+
     }
 
     @And("user select checkbox Sign up for our newsletter!")
     public void userSelectCheckboxSignUpForOurNewsletter() {
+
+        WebElement news = driver.findElement(By.xpath("//label[normalize-space()='Sign up for our newsletter!']"));
+        news.click();
+
     }
 
     @And("user select checkbox Receive special offers from our partners!")
     public void userSelectCheckboxReceiveSpecialOffersFromOurPartners() {
+
+        WebElement offer = driver.findElement(By.xpath("//label[normalize-space()='Receive special offers from our partners!']"));
+        offer.click();
+
     }
 
-    @And("user input First name {string}")
-    public void userInputFirstName(String arg0) {
+    @And("user input First name")
+    public void userInputFirstName() {
+
+        String firstName = generateRandomString(8);
+        WebElement firstNameField = driver.findElement(By.xpath("//input[@id='first_name']"));
+        firstNameField.sendKeys(firstName);
+        System.out.println("Generated First Name: " + firstName);
+
     }
 
-    @And("user input Last name {string}")
-    public void userInputLastName(String arg0) {
+    @And("user input Last name")
+    public void userInputLastName() {
+
+        String lastName = generateRandomString(8);
+        WebElement lastNameField = driver.findElement(By.xpath("//input[@id='last_name']"));
+        lastNameField.sendKeys(lastName);
+        System.out.println("Generated Last Name: " + lastName);
+
     }
 
-    @And("user input Company {string}")
-    public void userInputCompany(String arg0) {
+    @And("user input Company")
+    public void userInputCompany() {
+
+        String company = "Company-" + generateRandomString(6);
+        WebElement companyField = driver.findElement(By.xpath("//input[@id='company']"));
+        companyField.sendKeys(company);
+        System.out.println("Generated Company Name: " + company);
+
     }
 
-    @And("user input Address {string}")
-    public void userInputAddress(String arg0) {
+    @And("user input Address")
+    public void userInputAddress() {
+
+        String address = generateRandomString(12) + " Street";
+        WebElement addressField = driver.findElement(By.cssSelector("#address1"));
+        addressField.sendKeys(address);
+        System.out.println("Generated Address: " + address);
+
     }
 
-    @And("user input Address{int} {string}")
-    public void userInputAddress(int arg0, String arg1) {
+    @And("user input Address2")
+    public void userInputAddress2() {
+
+        String address2 = generateRandomString(12) + " Street";
+        WebElement addressField = driver.findElement(By.cssSelector("#address2"));
+        addressField.sendKeys(address2);
+        System.out.println("Generated Address 2: " + address2);
+
     }
 
-    @And("user input Country {string}")
-    public void userInputCountry(String arg0) {
+    @And("user input Country")
+    public void userInputCountry() {
+
+        WebElement country = driver.findElement(By.xpath("//select[@id='country']"));
+        Select sCountry = new Select(country);
+
+        sCountry.selectByVisibleText("India");
     }
 
-    @And("user input State {string}")
-    public void userInputState(String arg0) {
+    @And("user input State")
+    public void userInputState() {
+
+        String state = generateRandomString(6);
+        WebElement stateField = driver.findElement(By.xpath("//input[@id='state']"));
+        stateField.sendKeys(state);
+        System.out.println("Generated State: " + state);
+
     }
 
-    @And("user input City {string}")
-    public void userInputCity(String arg0) {
+    @And("user input City")
+    public void userInputCity() {
+
+        String city = generateRandomString(7);
+        WebElement cityField = driver.findElement(By.xpath("//input[@id='city']"));
+        cityField.sendKeys(city);
+        System.out.println("Generated City: " + city);
+
     }
 
-    @And("user input Zipcode {string}")
-    public void userInputZipcode(String arg0) {
+    @And("user input Zipcode")
+    public void userInputZipcode() {
+
+        String zipcode = generateRandomString(6);
+        WebElement zipcodeField = driver.findElement(By.xpath("//input[@id='zipcode']"));
+        zipcodeField.sendKeys(zipcode);
+        System.out.println("Generated Zipcode: " + zipcode);
+
     }
 
-    @And("user input Mobile Number {string}")
-    public void userInputMobileNumber(String arg0) {
+    @And("user input Mobile Number")
+    public void userInputMobileNumber() {
+
+        String mobileNumber = "+62" + generateRandomString(10);
+        WebElement mobileField = driver.findElement(By.xpath("//input[@id='mobile_number']"));
+        mobileField.sendKeys(mobileNumber);
+        System.out.println("Generated Mobile Number: " + mobileNumber);
+
     }
 
     @And("user click Create Account button")
     public void userClickCreateAccountButton() {
+
+        WebElement createButton = driver.findElement(By.xpath("//button[normalize-space()='Create Account']"));
+        createButton.click();
+
     }
 
     @Then("Verify that ACCOUNT CREATED! is visible")
     public void verifyThatACCOUNTCREATEDIsVisible() {
+
+        WebElement created = driver.findElement(By.xpath("//b[normalize-space()='Account Created!']"));
+        created.isDisplayed();
+
     }
 
     @And("user click Continue button")
     public void userClickContinueButton() {
+
+        WebElement Continue = driver.findElement(By.xpath("//a[normalize-space()='Continue']"));
+        Continue.click();
+
     }
 
     @And("Verify that Logged in as username is visible")
-    public void verifyThatLoggedInAsUsernameIsVisible() {
+    public void verifyThatLoggedInAsUsernameIsVisible() throws InterruptedException {
+
+        WebElement loggedInElement = driver.findElement(By.xpath("//li[10]//a[1]"));
+
+        String actualText = loggedInElement.getText().trim();
+        String displayedName = actualText.replace("Logged in as ", "").trim();
+
+        System.out.println("Expected Username: " + unregisteredName);
+        System.out.println("Displayed Username: " + displayedName);
+
+        Assert.assertEquals("User is not logged in correctly!", unregisteredName, displayedName);
+        utility.quitDriver();
+
     }
 
-    @When("user input unregistered name {string}")
-    public void userInputUnregisteredName(String arg0) {
-    }
 
     @And("user input registered email {string}")
-    public void userInputRegisteredEmail(String arg0) {
+    public void userInputRegisteredEmail(String regisEmail) throws InterruptedException {
+
+        WebElement fillregisEmail = driver.findElement(By.xpath("//input[@data-qa='signup-email']"));
+        fillregisEmail.sendKeys(regisEmail);
+        Thread.sleep(3000);
     }
 
     @Then("Verify that Email Address already exist! is visible")
-    public void verifyThatEmailAddressAlreadyExistIsVisible() {
+    public void verifyThatEmailAddressAlreadyExistIsVisible() throws InterruptedException {
+        try {
+            WebElement errorMessage = driver.findElement(By.xpath("//p[normalize-space()='Email Address already exist!']"));
+
+            String actualText = errorMessage.getText().trim();
+            String expectedText = "Email Address already exist!";
+            Assert.assertEquals("Error message is incorrect!", expectedText, actualText);
+
+            System.out.println("Error message displayed correctly: " + actualText);
+        } catch (NoSuchElementException e) {
+            System.out.println("Error message not found!");
+        }
+        utility.quitDriver();
     }
 
     @And("Click on Signup/Login button")
