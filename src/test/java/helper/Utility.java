@@ -1,4 +1,4 @@
-package Helper;
+package helper;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
@@ -7,7 +7,7 @@ import org.openqa.selenium.edge.EdgeOptions;
 
 import java.time.Duration;
 
-public class utility {
+public class Utility {
     public static WebDriver driver;
 
     public static WebDriver getDriver(){

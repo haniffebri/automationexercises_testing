@@ -1,6 +1,6 @@
-package Logic;
+package stepdefinitions;
 
-import Helper.utility;
+import helper.Utility;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -14,9 +14,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.NoSuchElementException;
 import java.util.Random;
-import static Helper.utility.driver;
+import static helper.Utility.driver;
 
-public class Register_Logic {
+public class RegisterSteps {
 
     private String registeredName;
     private String unregisteredName;
@@ -35,7 +35,7 @@ public class Register_Logic {
 
     @Given("launched browser")
     public void launchedBrowser() {
-        utility.startDriver();
+        Utility.startDriver();
     }
 
     @And("navigate to homepage")
@@ -48,7 +48,7 @@ public class Register_Logic {
     @And("verify that home page is visible successfully")
     public void verifyThatHomePageIsVisibleSuccessfully() throws InterruptedException {
 
-        WebDriverWait wait = new WebDriverWait(utility.getDriver(), Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(Utility.getDriver(), Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='item active']//h1[1]")));
         Thread.sleep(1000);
     }
@@ -62,7 +62,7 @@ public class Register_Logic {
 
     @And("Verify New User Signup! is visible")
     public void verifyNewUserSignupIsVisible() {
-        WebDriverWait wait = new WebDriverWait(utility.getDriver(), Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(Utility.getDriver(), Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[normalize-space()='New User Signup!']")));
     }
 
@@ -100,7 +100,7 @@ public class Register_Logic {
         WebElement emailField = driver.findElement(By.xpath("//input[@data-qa='signup-email']"));
         String validationMessage = emailField.getAttribute("Please fill out this field.");
         System.out.println("Validation Message : " + validationMessage);
-        utility.quitDriver();
+        Utility.quitDriver();
     }
 
 
@@ -137,7 +137,7 @@ public class Register_Logic {
     @And("user select Title")
     public void userSelectTitle() {
 
-        WebDriverWait wait = new WebDriverWait(utility.getDriver(), Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(Utility.getDriver(), Duration.ofSeconds(10));
         WebElement Title = driver.findElement(By.cssSelector("#id_gender1"));
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//b[normalize-space()='Enter Account Information']")));
@@ -343,7 +343,7 @@ public class Register_Logic {
         System.out.println("Displayed Username: " + displayedName);
 
         Assert.assertEquals("User is not logged in correctly!", unregisteredName, displayedName);
-        utility.quitDriver();
+        Utility.quitDriver();
 
     }
 
@@ -369,7 +369,7 @@ public class Register_Logic {
         } catch (NoSuchElementException e) {
             System.out.println("Error message not found!");
         }
-        utility.quitDriver();
+        Utility.quitDriver();
     }
 
     @And("Click on Signup/Login button")
