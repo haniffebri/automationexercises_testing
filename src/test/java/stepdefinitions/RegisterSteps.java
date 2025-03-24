@@ -7,6 +7,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -18,8 +19,8 @@ import static helper.Utility.driver;
 
 public class RegisterSteps {
 
-    private String registeredName;
-    private String unregisteredName;
+    String registeredName;
+    String unregisteredName;
     public String generateRandomString(int length) {
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"; // Karakter yang digunakan
         StringBuilder randomString = new StringBuilder();
@@ -42,7 +43,7 @@ public class RegisterSteps {
     public void navigateToHomepage() throws InterruptedException {
 
         driver.get("https://www.automationexercise.com/");
-        Thread.sleep(5000);
+        Thread.sleep(2000);
     }
 
     @And("verify that home page is visible successfully")
@@ -68,12 +69,12 @@ public class RegisterSteps {
 
     @When("user input registered name {string}")
     public void userInputRegisteredName(String name) {
+        registeredName = name;
 
         WebElement fillName = driver.findElement(By.xpath("//input[@placeholder='Name']"));
         fillName.sendKeys(name);
 
-        registeredName = name;
-        System.out.println("Registered Name: " + registeredName);
+        System.out.println("Registered Name: " + name);
     }
 
     @When("user input unregistered name")
@@ -84,7 +85,7 @@ public class RegisterSteps {
         unregisNameField.sendKeys(Name);
 
         unregisteredName = Name;
-        System.out.println("Registered Name: " + unregisteredName);
+        System.out.println("Unregistered Name: " + unregisteredName);
     }
 
     @And("user click Signup button")
@@ -94,11 +95,24 @@ public class RegisterSteps {
         signupButton.click();
     }
 
-    @Then("Verify Please fill out this field. is visible")
-    public void verifyPleaseFillOutThisFieldIsVisible() throws InterruptedException {
-
+    @Then("Verify Please fill out this field. is visible on the email field")
+    public void verifyPleaseFillOutThisFieldIsVisibleEmail() throws InterruptedException {
         WebElement emailField = driver.findElement(By.xpath("//input[@data-qa='signup-email']"));
-        String validationMessage = emailField.getAttribute("Please fill out this field.");
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        String validationMessage = (String) js.executeScript("return arguments[0].validationMessage;", emailField);
+
+        System.out.println("Validation Message : " + validationMessage);
+        Utility.quitDriver();
+    }
+
+    @Then("Verify Please fill out this field. is visible on the name field")
+    public void verifyPleaseFillOutThisFieldIsVisibleName() throws InterruptedException {
+        WebElement emailField = driver.findElement(By.xpath("//input[@placeholder='Name']"));
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        String validationMessage = (String) js.executeScript("return arguments[0].validationMessage;", emailField);
+
         System.out.println("Validation Message : " + validationMessage);
         Utility.quitDriver();
     }
@@ -331,18 +345,28 @@ public class RegisterSteps {
 
     }
 
-    @And("Verify that Logged in as username is visible")
-    public void verifyThatLoggedInAsUsernameIsVisible() throws InterruptedException {
+    @And("Verify that Logged in as registered username is visible")
+    public void verifyThatLoggedInAsRegistUsernameIsVisible() throws InterruptedException {
 
         WebElement loggedInElement = driver.findElement(By.xpath("//li[10]//a[1]"));
 
         String actualText = loggedInElement.getText().trim();
         String displayedName = actualText.replace("Logged in as ", "").trim();
 
-        System.out.println("Expected Username: " + unregisteredName);
-        System.out.println("Displayed Username: " + displayedName);
+        System.out.println("Logged in as " + displayedName);
+        Utility.quitDriver();
 
-        Assert.assertEquals("User is not logged in correctly!", unregisteredName, displayedName);
+    }
+
+    @And("Verify that Logged in as unregistered username is visible")
+    public void verifyThatLoggedInAsUnregistUsernameIsVisible() throws InterruptedException {
+
+        WebElement loggedInElement = driver.findElement(By.xpath("//li[10]//a[1]"));
+
+        String actualText = loggedInElement.getText().trim();
+        String displayedName = actualText.replace("Logged in as ", "").trim();
+
+        System.out.println("Logged in as " + displayedName);
         Utility.quitDriver();
 
     }

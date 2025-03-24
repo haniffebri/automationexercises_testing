@@ -8,7 +8,7 @@ Feature: Register
     And Verify New User Signup! is visible
     When user input unregistered name
     And user click Signup button
-    Then Verify Please fill out this field. is visible
+    Then Verify Please fill out this field. is visible on the email field
 
   Scenario: Register without filling name
     Given launched browser
@@ -18,7 +18,7 @@ Feature: Register
     And Verify New User Signup! is visible
     When user input unregistered email
     And user click Signup button
-    Then Verify Please fill out this field. is visible
+    Then Verify Please fill out this field. is visible on the name field
 
   Scenario: Register user with unregistered email
     Given launched browser
@@ -48,7 +48,7 @@ Feature: Register
     And user click Create Account button
     Then Verify that ACCOUNT CREATED! is visible
     And user click Continue button
-    And Verify that Logged in as username is visible
+    And Verify that Logged in as registered username is visible
 
   Scenario: Register user with unregistered name
     Given launched browser
@@ -89,7 +89,7 @@ Feature: Register
     And user click Create Account button
     Then Verify that ACCOUNT CREATED! is visible
     And user click Continue button
-    And Verify that Logged in as username is visible
+    And Verify that Logged in as unregistered username is visible
 
   Scenario: Register user with registered email
     Given launched browser
@@ -130,7 +130,7 @@ Feature: Register
     And user click Create Account button
     Then Verify that ACCOUNT CREATED! is visible
     And user click Continue button
-    And Verify that Logged in as username is visible
+    And Verify that Logged in as registered username is visible
 
   Scenario: Register user with Invalid Email Format (Missing @example.com)
     Given launched browser

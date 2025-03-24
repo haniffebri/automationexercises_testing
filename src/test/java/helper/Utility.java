@@ -26,7 +26,7 @@ public class Utility {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
     }
     public static void quitDriver() throws InterruptedException {
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         driver.quit();
     }
 }
