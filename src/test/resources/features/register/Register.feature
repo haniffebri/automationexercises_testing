@@ -139,7 +139,7 @@ Feature: Register
     And user click on Signup button
     And Verify New User Signup! is visible
     When user input registered name "yourName"
-    And Fill email with invalid format (missing @example.com) "blabla@example.com"
+    And Fill email with invalid format (missing @example.com) "example"
     And Click Signup button
     Then Verify that Please include an @ in the email address. email is missing an @. is visible
 
@@ -151,7 +151,7 @@ Feature: Register
     And user click on Signup button
     And Verify New User Signup! is visible
     When user input registered name "yourName"
-    And user input registered email "yourEmail"
+    And user input registered email "ex4arfxc@example.com"
     And user click Signup button
     Then Verify that Email Address already exist! is visible
 
@@ -161,12 +161,12 @@ Feature: Register
     And verify that home page is visible successfully
     And user click on Signup button
     And Verify New User Signup! is visible
-    When user input unregistered name "yourName"
-    And user input unregistered email "yourEmail"
+    When user input unregistered name
+    And user input unregistered email
     And user click Signup button
     And Verify that ENTER ACCOUNT INFORMATION is visible
     And user click Create Account button
-    Then Verify that Please fill out this field is visible
+    Then Verify that Please fill out this field is visible on the password field
 
   Scenario: Register with invalid email format (missing .com)
     Given launched browser
@@ -174,64 +174,37 @@ Feature: Register
     And verify that home page is visible successfully
     And user click on Signup button
     And Verify New User Signup! is visible
-    When user input registered name "invalidEmailTest"
-    And user input email "abc@"
+    When user input registered name "yourName"
+    And Fill email with invalid format (missing domain)
     And user click Signup button
-    Then Verify that Please include a '.' in the email address. is visible
+    Then Verify that Please enter a part following @. is incomplete. is visible
 
-  Scenario: Register without selecting country
+  Scenario: Register with empty title
     Given launched browser
     And navigate to homepage
     And verify that home page is visible successfully
     And user click on Signup button
     And Verify New User Signup! is visible
-    When user input registered name "noCountryUser"
+    When user input registered name "yourName"
     And user input unregistered email
     And user click Signup button
     And Verify that ENTER ACCOUNT INFORMATION is visible
-    And user select Title
     And user input Password
     And user select Date of birth
     And user select checkbox Sign up for our newsletter!
     And user select checkbox Receive special offers from our partners!
     And user input First name
     And user input Last name
-    And user input Company
     And user input Address
-    And user input Address2
+    And user input Country
     And user input State
     And user input City
     And user input Zipcode
     And user input Mobile Number
     And user click Create Account button
-    Then Verify that Please select a country is visible
-
-  Scenario: Register with empty mobile number
-    Given launched browser
-    And navigate to homepage
-    And verify that home page is visible successfully
-    And user click on Signup button
-    And Verify New User Signup! is visible
-    When user input registered name "noMobileUser"
-    And user input unregistered email
-    And user click Signup button
-    And Verify that ENTER ACCOUNT INFORMATION is visible
-    And user select Title
-    And user input Password
-    And user select Date of birth
-    And user select checkbox Sign up for our newsletter!
-    And user select checkbox Receive special offers from our partners!
-    And user input First name
-    And user input Last name
-    And user input Company
-    And user input Address
-    And user input Address2
-    And user input Country
-    And user input State
-    And user input City
-    And user input Zipcode
-    And user click Create Account button
-    Then Verify that Please fill out this field is visible
+    Then Verify that ACCOUNT CREATED! is visible
+    And user click Continue button
+    And Verify that Logged in as registered username is visible
 
   Scenario: Register with empty password
     Given launched browser
@@ -239,12 +212,14 @@ Feature: Register
     And verify that home page is visible successfully
     And user click on Signup button
     And Verify New User Signup! is visible
-    When user input registered name "noPassUser"
+    When user input registered name "yourName"
     And user input unregistered email
     And user click Signup button
     And Verify that ENTER ACCOUNT INFORMATION is visible
     And user select Title
     And user select Date of birth
+    And user select checkbox Sign up for our newsletter!
+    And user select checkbox Receive special offers from our partners!
     And user input First name
     And user input Last name
     And user input Company
@@ -256,7 +231,335 @@ Feature: Register
     And user input Zipcode
     And user input Mobile Number
     And user click Create Account button
-    Then Verify that Please fill out this field is visible
+    Then Verify that Please fill out this field is visible on the password field
+
+  Scenario: Register with empty Date of Birth
+    Given launched browser
+    And navigate to homepage
+    And verify that home page is visible successfully
+    And user click on Signup button
+    And Verify New User Signup! is visible
+    When user input registered name "yourName"
+    And user input unregistered email
+    And user click Signup button
+    And Verify that ENTER ACCOUNT INFORMATION is visible
+    And user select Title
+    And user input Password
+    And user select checkbox Sign up for our newsletter!
+    And user select checkbox Receive special offers from our partners!
+    And user input First name
+    And user input Last name
+    And user input Company
+    And user input Address
+    And user input Address2
+    And user input Country
+    And user input State
+    And user input City
+    And user input Zipcode
+    And user input Mobile Number
+    And user click Create Account button
+    Then Verify that ACCOUNT CREATED! is visible
+    And user click Continue button
+    And Verify that Logged in as registered username is visible
+
+  Scenario: Register without checklist news
+    Given launched browser
+    And navigate to homepage
+    And verify that home page is visible successfully
+    And user click on Signup button
+    And Verify New User Signup! is visible
+    When user input registered name "yourName"
+    And user input unregistered email
+    And user click Signup button
+    And Verify that ENTER ACCOUNT INFORMATION is visible
+    And user select Title
+    And user input Password
+    And user select Date of birth
+    And user select checkbox Receive special offers from our partners!
+    And user input First name
+    And user input Last name
+    And user input Company
+    And user input Address
+    And user input Address2
+    And user input Country
+    And user input State
+    And user input City
+    And user input Zipcode
+    And user input Mobile Number
+    And user click Create Account button
+    Then Verify that ACCOUNT CREATED! is visible
+    And user click Continue button
+    And Verify that Logged in as registered username is visible
+
+  Scenario: Register without checklist offers
+    Given launched browser
+    And navigate to homepage
+    And verify that home page is visible successfully
+    And user click on Signup button
+    And Verify New User Signup! is visible
+    When user input registered name "yourName"
+    And user input unregistered email
+    And user click Signup button
+    And Verify that ENTER ACCOUNT INFORMATION is visible
+    And user select Title
+    And user input Password
+    And user select Date of birth
+    And user select checkbox Sign up for our newsletter!
+    And user input First name
+    And user input Last name
+    And user input Company
+    And user input Address
+    And user input Address2
+    And user input Country
+    And user input State
+    And user input City
+    And user input Zipcode
+    And user input Mobile Number
+    And user click Create Account button
+    Then Verify that ACCOUNT CREATED! is visible
+    And user click Continue button
+    And Verify that Logged in as registered username is visible
+
+  Scenario: Register with empty First name
+    Given launched browser
+    And navigate to homepage
+    And verify that home page is visible successfully
+    And user click on Signup button
+    And Verify New User Signup! is visible
+    When user input registered name "yourName"
+    And user input unregistered email
+    And user click Signup button
+    And Verify that ENTER ACCOUNT INFORMATION is visible
+    And user select Title
+    And user input Password
+    And user select Date of birth
+    And user select checkbox Sign up for our newsletter!
+    And user select checkbox Receive special offers from our partners!
+    And user input Last name
+    And user input Company
+    And user input Address
+    And user input Address2
+    And user input Country
+    And user input State
+    And user input City
+    And user input Zipcode
+    And user input Mobile Number
+    And user click Create Account button
+    Then Verify that Please fill out this field is visible on the First name field
+
+  Scenario: Register with empty Last name
+    Given launched browser
+    And navigate to homepage
+    And verify that home page is visible successfully
+    And user click on Signup button
+    And Verify New User Signup! is visible
+    When user input registered name "yourName"
+    And user input unregistered email
+    And user click Signup button
+    And Verify that ENTER ACCOUNT INFORMATION is visible
+    And user select Title
+    And user input Password
+    And user select Date of birth
+    And user select checkbox Sign up for our newsletter!
+    And user select checkbox Receive special offers from our partners!
+    And user input First name
+    And user input Company
+    And user input Address
+    And user input Address2
+    And user input Country
+    And user input State
+    And user input City
+    And user input Zipcode
+    And user input Mobile Number
+    And user click Create Account button
+    Then Verify that Please fill out this field is visible on the Last name field
+
+  Scenario: Register with empty Company
+    Given launched browser
+    And navigate to homepage
+    And verify that home page is visible successfully
+    And user click on Signup button
+    And Verify New User Signup! is visible
+    When user input registered name "yourName"
+    And user input unregistered email
+    And user click Signup button
+    And Verify that ENTER ACCOUNT INFORMATION is visible
+    And user select Title
+    And user input Password
+    And user select Date of birth
+    And user select checkbox Sign up for our newsletter!
+    And user select checkbox Receive special offers from our partners!
+    And user input First name
+    And user input Last name
+    And user input Address
+    And user input Address2
+    And user input Country
+    And user input State
+    And user input City
+    And user input Zipcode
+    And user input Mobile Number
+    And user click Create Account button
+    Then Verify that ACCOUNT CREATED! is visible
+    And user click Continue button
+    And Verify that Logged in as registered username is visible
+
+  Scenario: Register with empty Address
+    Given launched browser
+    And navigate to homepage
+    And verify that home page is visible successfully
+    And user click on Signup button
+    And Verify New User Signup! is visible
+    When user input registered name "yourName"
+    And user input unregistered email
+    And user click Signup button
+    And Verify that ENTER ACCOUNT INFORMATION is visible
+    And user select Title
+    And user input Password
+    And user select Date of birth
+    And user select checkbox Sign up for our newsletter!
+    And user select checkbox Receive special offers from our partners!
+    And user input First name
+    And user input Last name
+    And user input Address2
+    And user input Country
+    And user input State
+    And user input City
+    And user input Zipcode
+    And user input Mobile Number
+    And user click Create Account button
+    Then Verify that Please fill out this field is visible on the Address field
+
+  Scenario: Register with empty Address2
+    Given launched browser
+    And navigate to homepage
+    And verify that home page is visible successfully
+    And user click on Signup button
+    And Verify New User Signup! is visible
+    When user input registered name "yourName"
+    And user input unregistered email
+    And user click Signup button
+    And Verify that ENTER ACCOUNT INFORMATION is visible
+    And user select Title
+    And user input Password
+    And user select Date of birth
+    And user select checkbox Sign up for our newsletter!
+    And user select checkbox Receive special offers from our partners!
+    And user input First name
+    And user input Last name
+    And user input Address
+    And user input Country
+    And user input State
+    And user input City
+    And user input Zipcode
+    And user input Mobile Number
+    And user click Create Account button
+    Then Verify that ACCOUNT CREATED! is visible
+    And user click Continue button
+    And Verify that Logged in as registered username is visible
+
+  Scenario: Register with empty State
+    Given launched browser
+    And navigate to homepage
+    And verify that home page is visible successfully
+    And user click on Signup button
+    And Verify New User Signup! is visible
+    When user input registered name "yourName"
+    And user input unregistered email
+    And user click Signup button
+    And Verify that ENTER ACCOUNT INFORMATION is visible
+    And user select Title
+    And user input Password
+    And user select Date of birth
+    And user select checkbox Sign up for our newsletter!
+    And user select checkbox Receive special offers from our partners!
+    And user input First name
+    And user input Last name
+    And user input Address
+    And user input Address2
+    And user input Country
+    And user input City
+    And user input Zipcode
+    And user input Mobile Number
+    And user click Create Account button
+    Then Verify that Please fill out this field is visible on the State field
+
+  Scenario: Register with empty City
+    Given launched browser
+    And navigate to homepage
+    And verify that home page is visible successfully
+    And user click on Signup button
+    And Verify New User Signup! is visible
+    When user input registered name "yourName"
+    And user input unregistered email
+    And user click Signup button
+    And Verify that ENTER ACCOUNT INFORMATION is visible
+    And user select Title
+    And user input Password
+    And user select Date of birth
+    And user select checkbox Sign up for our newsletter!
+    And user select checkbox Receive special offers from our partners!
+    And user input First name
+    And user input Last name
+    And user input Address
+    And user input Address2
+    And user input Country
+    And user input State
+    And user input Zipcode
+    And user input Mobile Number
+    And user click Create Account button
+    Then Verify that Please fill out this field is visible on the City field
+
+  Scenario: Register with empty Zipcode
+    Given launched browser
+    And navigate to homepage
+    And verify that home page is visible successfully
+    And user click on Signup button
+    And Verify New User Signup! is visible
+    When user input registered name "yourName"
+    And user input unregistered email
+    And user click Signup button
+    And Verify that ENTER ACCOUNT INFORMATION is visible
+    And user select Title
+    And user input Password
+    And user select Date of birth
+    And user select checkbox Sign up for our newsletter!
+    And user select checkbox Receive special offers from our partners!
+    And user input First name
+    And user input Last name
+    And user input Address
+    And user input Address2
+    And user input Country
+    And user input State
+    And user input City
+    And user input Mobile Number
+    And user click Create Account button
+    Then Verify that Please fill out this field is visible on the Zipcode field
+
+  Scenario: Register with empty Mobile Number
+    Given launched browser
+    And navigate to homepage
+    And verify that home page is visible successfully
+    And user click on Signup button
+    And Verify New User Signup! is visible
+    When user input registered name "yourName"
+    And user input unregistered email
+    And user click Signup button
+    And Verify that ENTER ACCOUNT INFORMATION is visible
+    And user select Title
+    And user input Password
+    And user select Date of birth
+    And user select checkbox Sign up for our newsletter!
+    And user select checkbox Receive special offers from our partners!
+    And user input First name
+    And user input Last name
+    And user input Address
+    And user input Address2
+    And user input Country
+    And user input State
+    And user input City
+    And user input Zipcode
+    And user click Create Account button
+    Then Verify that Please fill out this field is visible on the Mobile Number field
 
   Scenario: Register with special characters only in name field
     Given launched browser

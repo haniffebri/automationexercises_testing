@@ -19,6 +19,7 @@ import static helper.Utility.driver;
 
 public class RegisterSteps {
 
+    String invalidEmail;
     String registeredName;
     String unregisteredName;
     public String generateRandomString(int length) {
@@ -47,11 +48,10 @@ public class RegisterSteps {
     }
 
     @And("verify that home page is visible successfully")
-    public void verifyThatHomePageIsVisibleSuccessfully() throws InterruptedException {
+    public void verifyThatHomePageIsVisibleSuccessfully() {
 
         WebDriverWait wait = new WebDriverWait(Utility.getDriver(), Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='item active']//h1[1]")));
-        Thread.sleep(1000);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='header-middle']//div[@class='row']")));
     }
 
     @And("user click on Signup button")
@@ -325,6 +325,9 @@ public class RegisterSteps {
     public void userClickCreateAccountButton() {
 
         WebElement createButton = driver.findElement(By.xpath("//button[normalize-space()='Create Account']"));
+
+        WebDriverWait wait = new WebDriverWait(Utility.getDriver(), Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[normalize-space()='Create Account']")));
         createButton.click();
 
     }
@@ -413,14 +416,156 @@ public class RegisterSteps {
     }
 
     @And("Fill email with invalid format \\(missing @example.com) {string}")
-    public void fillEmailWithInvalidFormatMissingExampleCom(String arg0) {
+    public void fillEmailWithInvalidFormatMissingExampleCom(String invalidEmail) {
+
+        WebElement fillEmail = driver.findElement(By.xpath("//input[@data-qa='signup-email']"));
+        fillEmail.sendKeys(invalidEmail);
+
+        System.out.println("Email : " + invalidEmail);
+
+    }
+
+    @And("Fill email with invalid format \\(missing domain)")
+    public void fillEmailWithInvalidFormatMissingDomain() {
+
+        String prefix = generateRandomString(5);
+        invalidEmail = prefix + "@";
+
+        WebElement fillEmail = driver.findElement(By.xpath("//input[@data-qa='signup-email']"));
+        fillEmail.sendKeys(invalidEmail);
+
+        System.out.println("Generated Invalid Email: " + invalidEmail);
+
     }
 
     @Then("Verify that Please include an @ in the email address. email is missing an @. is visible")
-    public void verifyThatPleaseIncludeAnInTheEmailAddressEmailIsMissingAnIsVisible() {
+    public void verifyThatPleaseIncludeAnInTheEmailAddressEmailIsMissingAnIsVisible() throws InterruptedException {
+        WebElement emailField = driver.findElement(By.xpath("//input[@data-qa='signup-email']"));
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        String validationMessage = (String) js.executeScript("return arguments[0].validationMessage;", emailField);
+
+        System.out.println("Validation Message : " + validationMessage);
+        Utility.quitDriver();
+
     }
 
-    @Then("Verify that Please fill out this field is visible")
-    public void verifyThatPleaseFillOutThisFieldIsVisible() {
+    @Then("Verify that Please fill out this field is visible on the password field")
+    public void verifyThatPleaseFillOutThisFieldIsVisiblePassField() throws InterruptedException {
+
+        WebElement passField = driver.findElement(By.xpath("//input[@id='password']"));
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        String validationMessage = (String) js.executeScript("return arguments[0].validationMessage;", passField);
+
+        System.out.println("Validation Message : " + validationMessage);
+        Utility.quitDriver();
+
+    }
+
+    @Then("Verify that Please enter a part following @. is incomplete. is visible")
+    public void verifyThatPleaseEnterAPartFollowingIsVisible() throws InterruptedException {
+        WebElement emailField = driver.findElement(By.xpath("//input[@data-qa='signup-email']"));
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        String validationMessage = (String) js.executeScript("return arguments[0].validationMessage;", emailField);
+
+        String expectedMessage = "Please enter a part following '@'. '" + invalidEmail + "' is incomplete.";
+
+        System.out.println("Validation Message : " + validationMessage);
+        Assert.assertEquals(expectedMessage, validationMessage);
+
+        Utility.quitDriver();
+    }
+
+    @Then("Verify that Please fill out this field is visible on the First name field")
+    public void verifyThatPleaseFillOutThisFieldIsVisible() throws InterruptedException {
+
+        WebElement firstNameField = driver.findElement(By.xpath("//input[@id='first_name']"));
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        String validationMessage = (String) js.executeScript("return arguments[0].validationMessage;", firstNameField);
+
+        System.out.println("Validation Message : " + validationMessage);
+        Utility.quitDriver();
+
+    }
+
+    @Then("Verify that Please fill out this field is visible on the Last name field")
+    public void verifyThatPleaseFillOutThisFieldIsVisibleOnTheLastNameField() throws InterruptedException {
+
+        WebElement lastNameField = driver.findElement(By.xpath("//input[@id='last_name']"));
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        String validationMessage = (String) js.executeScript("return arguments[0].validationMessage;", lastNameField);
+
+        System.out.println("Validation Message : " + validationMessage);
+        Utility.quitDriver();
+
+    }
+
+    @Then("Verify that Please fill out this field is visible on the Address field")
+    public void verifyThatPleaseFillOutThisFieldIsVisibleOnTheAddressField() throws InterruptedException {
+
+        WebElement addressField = driver.findElement(By.cssSelector("#address1"));
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        String validationMessage = (String) js.executeScript("return arguments[0].validationMessage;", addressField);
+
+        System.out.println("Validation Message : " + validationMessage);
+        Utility.quitDriver();
+        
+    }
+
+    @Then("Verify that Please fill out this field is visible on the State field")
+    public void verifyThatPleaseFillOutThisFieldIsVisibleOnTheStateField() throws InterruptedException {
+
+        WebElement stateField = driver.findElement(By.xpath("//input[@id='state']"));
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        String validationMessage = (String) js.executeScript("return arguments[0].validationMessage;", stateField);
+
+        System.out.println("Validation Message : " + validationMessage);
+        Utility.quitDriver();
+
+    }
+
+    @Then("Verify that Please fill out this field is visible on the City field")
+    public void verifyThatPleaseFillOutThisFieldIsVisibleOnTheCityField() throws InterruptedException {
+
+        WebElement cityField = driver.findElement(By.xpath("//input[@id='city']"));
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        String validationMessage = (String) js.executeScript("return arguments[0].validationMessage;", cityField);
+
+        System.out.println("Validation Message : " + validationMessage);
+        Utility.quitDriver();
+
+    }
+
+    @Then("Verify that Please fill out this field is visible on the Zipcode field")
+    public void verifyThatPleaseFillOutThisFieldIsVisibleOnTheZipcodeField() throws InterruptedException {
+
+        WebElement zipField = driver.findElement(By.xpath("//input[@id='zipcode']"));
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        String validationMessage = (String) js.executeScript("return arguments[0].validationMessage;", zipField);
+
+        System.out.println("Validation Message : " + validationMessage);
+        Utility.quitDriver();
+
+    }
+
+    @Then("Verify that Please fill out this field is visible on the Mobile Number field")
+    public void verifyThatPleaseFillOutThisFieldIsVisibleOnTheMobileNumberField() throws InterruptedException {
+
+        WebElement numberField = driver.findElement(By.xpath("//input[@id='mobile_number']"));
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        String validationMessage = (String) js.executeScript("return arguments[0].validationMessage;", numberField);
+
+        System.out.println("Validation Message : " + validationMessage);
+        Utility.quitDriver();
+
     }
 }
