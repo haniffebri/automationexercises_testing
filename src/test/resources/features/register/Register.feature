@@ -1,5 +1,14 @@
 Feature: Register
 
+  Scenario: Register without filling email and name
+    Given launched browser
+    And navigate to homepage
+    And verify that home page is visible successfully
+    And user click on Signup button
+    And Verify New User Signup! is visible
+    And user click Signup button
+    Then Verify Please fill out this field. is visible on the name field
+
   Scenario: Register without filling email
     Given launched browser
     And navigate to homepage
@@ -20,6 +29,17 @@ Feature: Register
     And user click Signup button
     Then Verify Please fill out this field. is visible on the name field
 
+  Scenario: Register using non-English characters
+    Given launched browser
+    And navigate to homepage
+    And verify that home page is visible successfully
+    And user click on Signup button
+    And Verify New User Signup! is visible
+    When user input unregistered name "张伟张伟张伟张伟张伟张伟张伟张伟张伟"
+    And user input unregistered email "张伟张伟张伟张伟张伟@أحمدأحمد.أحمدأحمد"
+    And user click Signup button
+    Then Verify Please fill out this field. is visible on the name field
+
   Scenario: Register user with unregistered email
     Given launched browser
     And navigate to homepage
@@ -28,6 +48,36 @@ Feature: Register
     And Verify New User Signup! is visible
     When user input registered name "yourName"
     And user input unregistered email
+    And user click Signup button
+    And Verify that ENTER ACCOUNT INFORMATION is visible
+    And user select Title
+    And user input Password
+    And user select Date of birth
+    And user select checkbox Sign up for our newsletter!
+    And user select checkbox Receive special offers from our partners!
+    And user input First name
+    And user input Last name
+    And user input Company
+    And user input Address
+    And user input Address2
+    And user input Country
+    And user input State
+    And user input City
+    And user input Zipcode
+    And user input Mobile Number
+    And user click Create Account button
+    Then Verify that ACCOUNT CREATED! is visible
+    And user click Continue button
+    And Verify that Logged in as registered username is visible
+
+  Scenario: Register using same email but different casing
+    Given launched browser
+    And navigate to homepage
+    And verify that home page is visible successfully
+    And user click on Signup button
+    And Verify New User Signup! is visible
+    When user input registered name "yourName"
+    And user input unregistered email "dsfgfbrwbwds@rebebfdbbdbrebebe.com"
     And user click Signup button
     And Verify that ENTER ACCOUNT INFORMATION is visible
     And user select Title
@@ -91,15 +141,45 @@ Feature: Register
     And user click Continue button
     And Verify that Logged in as unregistered username is visible
 
+  Scenario: Register with whitespace around name or email
+    Given launched browser
+    And navigate to homepage
+    And verify that home page is visible successfully
+    And user click on Signup button
+    And Verify New User Signup! is visible
+    When user input unregistered name " qqq "
+    And user input unregistered email " vdvdfv@dvdfvdfr.reggbdfbdfg "
+    And user click Signup button
+    And Verify that ENTER ACCOUNT INFORMATION is visible
+    And user select Title
+    And user input Password
+    And user select Date of birth
+    And user select checkbox Sign up for our newsletter!
+    And user select checkbox Receive special offers from our partners!
+    And user input First name
+    And user input Last name
+    And user input Company
+    And user input Address
+    And user input Address2
+    And user input Country
+    And user input State
+    And user input City
+    And user input Zipcode
+    And user input Mobile Number
+    And user click Create Account button
+    Then Verify that ACCOUNT CREATED! is visible
+    And user click Continue button
+    And Verify that Logged in as unregistered username is visible
+
   Scenario: Register user with registered email
     Given launched browser
     And navigate to homepage
     And verify that home page is visible successfully
     And user click on Signup button
     And Verify New User Signup! is visible
-    When Fill name
-    And Fill email registered
-    And Click Signup button
+    When user input unregistered name
+    And user input registered email "ex4arfxc@example.com"
+    And user click Signup button
     Then Verify that Email Address already exist! is visible
 
   Scenario: Register user with registered name
@@ -109,7 +189,7 @@ Feature: Register
     And user click on Signup button
     And Verify New User Signup! is visible
     When user input registered name "yourName"
-    And user input unregistered email "yourEmail"
+    And user input unregistered email
     And user click Signup button
     And Verify that ENTER ACCOUNT INFORMATION is visible
     And user select Title
@@ -140,7 +220,7 @@ Feature: Register
     And Verify New User Signup! is visible
     When user input registered name "yourName"
     And Fill email with invalid format (missing @example.com) "example"
-    And Click Signup button
+    And user click Signup button
     Then Verify that Please include an @ in the email address. email is missing an @. is visible
 
 
@@ -560,6 +640,36 @@ Feature: Register
     And user input Zipcode
     And user click Create Account button
     Then Verify that Please fill out this field is visible on the Mobile Number field
+
+  Scenario: Register with long input values
+    Given launched browser
+    And navigate to homepage
+    And verify that home page is visible successfully
+    And user click on Signup button
+    And Verify New User Signup! is visible
+    When user input long character unregistered name
+    And user input long character unregistered email
+    And user click Signup button
+    And Verify that ENTER ACCOUNT INFORMATION is visible
+    And user select Title
+    And user input long character Password
+    And user select Date of birth
+    And user select checkbox Sign up for our newsletter!
+    And user select checkbox Receive special offers from our partners!
+    And user input long character First name
+    And user input long character Last name
+    And user input long character Company
+    And user input long character Address
+    And user input long character Address2
+    And user input Country
+    And user input long character State
+    And user input long character City
+    And user input long character Zipcode
+    And user input long character Mobile Number
+    And user click Create Account button
+    Then Verify that ACCOUNT CREATED! is visible
+    And user click Continue button
+    And Verify that Logged in as unregistered username is visible
 
   Scenario: Register with special characters only in name field
     Given launched browser
