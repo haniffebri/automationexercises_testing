@@ -35,8 +35,8 @@ Feature: Register
     And verify that home page is visible successfully
     And user click on Signup button
     And Verify New User Signup! is visible
-    When user input unregistered name "张伟张伟张伟张伟张伟张伟张伟张伟张伟"
-    And user input unregistered email "张伟张伟张伟张伟张伟@أحمدأحمد.أحمدأحمد"
+    When user input unregistered name "张伟张张伟张伟张伟张伟张伟张伟张伟张伟"
+    And user input unregistered email "张伟张张张张伟张伟张伟张伟@أحمدأحمد.أحمدأحمد"
     And user click Signup button
     Then Verify Please fill out this field. is visible on the name field
 
@@ -77,7 +77,7 @@ Feature: Register
     And user click on Signup button
     And Verify New User Signup! is visible
     When user input registered name "yourName"
-    And user input unregistered email "dsfgfbrwbwds@rebebfdbbdbrebebe.com"
+    And user input unregistered email "sdwdssdg@rebedsfdsgdsgsgbfwqdwefwebbdbrebebsdfsdfsde.com"
     And user click Signup button
     And Verify that ENTER ACCOUNT INFORMATION is visible
     And user select Title
@@ -147,8 +147,8 @@ Feature: Register
     And verify that home page is visible successfully
     And user click on Signup button
     And Verify New User Signup! is visible
-    When user input unregistered name " qqq "
-    And user input unregistered email " vdvdfv@dvdfvdfr.reggbdfbdfg "
+    When user input unregistered name " sdoiofddfsfsd "
+    And user input unregistered email " sdioodssdfdsdsf@sdfdssaffqsaxvvd.ewtsdfgdfwqsgds "
     And user click Signup button
     And Verify that ENTER ACCOUNT INFORMATION is visible
     And user select Title
