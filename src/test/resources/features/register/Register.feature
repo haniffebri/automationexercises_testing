@@ -77,7 +77,7 @@ Feature: Register
     And user click on Signup button
     And Verify New User Signup! is visible
     When user input registered name "yourName"
-    And user input unregistered email "sdwdssdg@rebedsfdsgdsgsgbfwqdwefwebbdbrebebsdfsdfsde.com"
+    And user input unregistered email "sdwdssafawfafwafdg@rebedsfdsgdsgsgbfwqdwefwebbdbrebebsdfsdfsde.com"
     And user click Signup button
     And Verify that ENTER ACCOUNT INFORMATION is visible
     And user select Title
@@ -148,7 +148,7 @@ Feature: Register
     And user click on Signup button
     And Verify New User Signup! is visible
     When user input unregistered name " sdoiofddfsfsd "
-    And user input unregistered email " sdioodssdfdsdsf@sdfdssaffqsaxvvd.ewtsdfgdfwqsgds "
+    And user input unregistered email " sdioodssdwqffdsdsf@sdfdssqwfqaffqsaxvvd.ewtsdfgdfwqsgds "
     And user click Signup button
     And Verify that ENTER ACCOUNT INFORMATION is visible
     And user select Title

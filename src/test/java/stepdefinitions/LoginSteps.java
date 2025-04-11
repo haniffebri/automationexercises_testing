@@ -4,6 +4,7 @@ import helper.Utility;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -56,7 +57,7 @@ public class LoginSteps {
     }
 
     @Then("Verify that Logged in as username is visible")
-    public void verifyThatLoggedInAsUsernameIsVisible() throws InterruptedException {
+    public void verifyThatLoggedInAsUsernameIsVisible(){
 
         WebElement loggedInElement = driver.findElement(By.xpath("//li[10]//a[1]"));
 
@@ -64,7 +65,6 @@ public class LoginSteps {
         String displayedName = actualText.replace("Logged in as ", "").trim();
 
         System.out.println("Logged in as " + displayedName);
-        Utility.quitDriver();
 
     }
 
@@ -79,7 +79,6 @@ public class LoginSteps {
         WebElement errorIncorrect = driver.findElement(By.xpath("//p[normalize-space()='Your email or password is incorrect!']"));
 
         errorIncorrect.isDisplayed();
-        Utility.quitDriver();
 
     }
 
@@ -116,7 +115,7 @@ public class LoginSteps {
     }
 
     @Then("Verify Please fill out this field. is visible on the password field")
-    public void verifyPleaseFillOutThisFieldIsVisibleOnThePasswordField() throws InterruptedException {
+    public void verifyPleaseFillOutThisFieldIsVisibleOnThePasswordField(){
 
         WebElement pwlField = driver.findElement(By.xpath("//input[@placeholder='Password']"));
 
@@ -124,12 +123,11 @@ public class LoginSteps {
         String validationMessage = (String) js.executeScript("return arguments[0].validationMessage;", pwlField);
 
         System.out.println("Validation Message : " + validationMessage);
-        Utility.quitDriver();
 
     }
 
     @Then("Verify that Please include an @ in the email address. email is missing an @. is visible on the email login field")
-    public void verifyThatPleaseIncludeAnInTheEmailAddressEmailIsMissingAnIsVisibleOnTheEmailLoginField() throws InterruptedException {
+    public void verifyThatPleaseIncludeAnInTheEmailAddressEmailIsMissingAnIsVisibleOnTheEmailLoginField() {
 
         WebElement emailField = driver.findElement(By.xpath("//input[@data-qa='login-email']"));
 
@@ -137,7 +135,46 @@ public class LoginSteps {
         String validationMessage = (String) js.executeScript("return arguments[0].validationMessage;", emailField);
 
         System.out.println("Validation Message : " + validationMessage);
-        Utility.quitDriver();
+
+    }
+
+    @And("User leave email field empty")
+    public void userLeaveEmailFieldEmpty() {
+
+        WebElement emailField = driver.findElement(By.xpath("//input[@data-qa='login-email']"));
+        emailField.sendKeys("");
+
+    }
+
+    @And("User leave password field empty")
+    public void userLeavePasswordFieldEmpty() {
+
+        WebElement passwordField = driver.findElement(By.xpath("//input[@data-qa='login-password']"));
+        passwordField.sendKeys("");
+
+    }
+
+    @When("User click logout button")
+    public void userClickLogoutButton() {
+
+        WebElement logoutButton = driver.findElement(By.xpath("//a[normalize-space()='Logout']"));
+        logoutButton.click();
+
+    }
+
+    @Then("Verify that user is navigated to login page")
+    public void verifyThatUserIsNavigatedToLoginPage(){
+
+        WebDriverWait wait = new WebDriverWait(Utility.getDriver(), Duration.ofSeconds(10));
+        WebElement loginHeader = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//h2[normalize-space()='Login to your account']")
+                )
+        );
+
+        Assert.assertTrue("Login page is not visible!", loginHeader.isDisplayed());
+
+        System.out.println("Successfully navigated to login page");
 
     }
 }

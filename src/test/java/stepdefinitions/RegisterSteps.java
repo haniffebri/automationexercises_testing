@@ -98,25 +98,25 @@ public class RegisterSteps {
     }
 
     @Then("Verify Please fill out this field. is visible on the email field")
-    public void verifyPleaseFillOutThisFieldIsVisibleEmail() throws InterruptedException {
+    public void verifyPleaseFillOutThisFieldIsVisibleEmail(){
         WebElement emailField = driver.findElement(By.xpath("//input[@data-qa='signup-email']"));
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         String validationMessage = (String) js.executeScript("return arguments[0].validationMessage;", emailField);
 
         System.out.println("Validation Message : " + validationMessage);
-        Utility.quitDriver();
+        
     }
 
     @Then("Verify Please fill out this field. is visible on the name field")
-    public void verifyPleaseFillOutThisFieldIsVisibleName() throws InterruptedException {
+    public void verifyPleaseFillOutThisFieldIsVisibleName(){
         WebElement emailField = driver.findElement(By.xpath("//input[@placeholder='Name']"));
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         String validationMessage = (String) js.executeScript("return arguments[0].validationMessage;", emailField);
 
         System.out.println("Validation Message : " + validationMessage);
-        Utility.quitDriver();
+        
     }
 
 
@@ -146,10 +146,14 @@ public class RegisterSteps {
     }
 
     @And("user select Title")
-    public void userSelectTitle() {
+    public void userSelectTitle() throws InterruptedException {
+
+        WebElement Title = driver.findElement(By.cssSelector("#id_gender1"));
+
+        ((JavascriptExecutor) Utility.getDriver()).executeScript("arguments[0].scrollIntoView(true);", Title);
+        Thread.sleep(500);
 
         WebDriverWait wait = new WebDriverWait(Utility.getDriver(), Duration.ofSeconds(10));
-        WebElement Title = driver.findElement(By.cssSelector("#id_gender1"));
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#id_gender1")));
         Title.click();
@@ -342,7 +346,7 @@ public class RegisterSteps {
     }
 
     @And("Verify that Logged in as registered username is visible")
-    public void verifyThatLoggedInAsRegistUsernameIsVisible() throws InterruptedException {
+    public void verifyThatLoggedInAsRegistUsernameIsVisible(){
 
         WebElement loggedInElement = driver.findElement(By.xpath("//li[10]//a[1]"));
 
@@ -350,12 +354,11 @@ public class RegisterSteps {
         String displayedName = actualText.replace("Logged in as ", "").trim();
 
         System.out.println("Logged in as " + displayedName);
-        Utility.quitDriver();
 
     }
 
     @And("Verify that Logged in as unregistered username is visible")
-    public void verifyThatLoggedInAsUnregistUsernameIsVisible() throws InterruptedException {
+    public void verifyThatLoggedInAsUnregistUsernameIsVisible() {
 
         WebElement loggedInElement = driver.findElement(By.xpath("//li[10]//a[1]"));
 
@@ -363,7 +366,6 @@ public class RegisterSteps {
         String displayedName = actualText.replace("Logged in as ", "").trim();
 
         System.out.println("Logged in as " + displayedName);
-        Utility.quitDriver();
 
     }
 
@@ -390,7 +392,7 @@ public class RegisterSteps {
         } catch (NoSuchElementException e) {
             System.out.println("Error message not found!");
         }
-        Utility.quitDriver();
+        
     }
 
     @And("Fill email with invalid format \\(missing @example.com) {string}")
@@ -417,19 +419,18 @@ public class RegisterSteps {
     }
 
     @Then("Verify that Please include an @ in the email address. email is missing an @. is visible")
-    public void verifyThatPleaseIncludeAnInTheEmailAddressEmailIsMissingAnIsVisible() throws InterruptedException {
+    public void verifyThatPleaseIncludeAnInTheEmailAddressEmailIsMissingAnIsVisible(){
         WebElement emailField = driver.findElement(By.xpath("//input[@data-qa='signup-email']"));
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         String validationMessage = (String) js.executeScript("return arguments[0].validationMessage;", emailField);
 
         System.out.println("Validation Message : " + validationMessage);
-        Utility.quitDriver();
 
     }
 
     @Then("Verify that Please fill out this field is visible on the password field")
-    public void verifyThatPleaseFillOutThisFieldIsVisiblePassField() throws InterruptedException {
+    public void verifyThatPleaseFillOutThisFieldIsVisiblePassField(){
 
         WebElement passField = driver.findElement(By.xpath("//input[@id='password']"));
 
@@ -437,12 +438,11 @@ public class RegisterSteps {
         String validationMessage = (String) js.executeScript("return arguments[0].validationMessage;", passField);
 
         System.out.println("Validation Message : " + validationMessage);
-        Utility.quitDriver();
 
     }
 
     @Then("Verify that Please enter a part following @. is incomplete. is visible")
-    public void verifyThatPleaseEnterAPartFollowingIsVisible() throws InterruptedException {
+    public void verifyThatPleaseEnterAPartFollowingIsVisible() {
         WebElement emailField = driver.findElement(By.xpath("//input[@data-qa='signup-email']"));
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -453,11 +453,10 @@ public class RegisterSteps {
         System.out.println("Validation Message : " + validationMessage);
         Assert.assertEquals(expectedMessage, validationMessage);
 
-        Utility.quitDriver();
     }
 
     @Then("Verify that Please fill out this field is visible on the First name field")
-    public void verifyThatPleaseFillOutThisFieldIsVisible() throws InterruptedException {
+    public void verifyThatPleaseFillOutThisFieldIsVisible(){
 
         WebElement firstNameField = driver.findElement(By.xpath("//input[@id='first_name']"));
 
@@ -465,12 +464,11 @@ public class RegisterSteps {
         String validationMessage = (String) js.executeScript("return arguments[0].validationMessage;", firstNameField);
 
         System.out.println("Validation Message : " + validationMessage);
-        Utility.quitDriver();
 
     }
 
     @Then("Verify that Please fill out this field is visible on the Last name field")
-    public void verifyThatPleaseFillOutThisFieldIsVisibleOnTheLastNameField() throws InterruptedException {
+    public void verifyThatPleaseFillOutThisFieldIsVisibleOnTheLastNameField(){
 
         WebElement lastNameField = driver.findElement(By.xpath("//input[@id='last_name']"));
 
@@ -478,12 +476,11 @@ public class RegisterSteps {
         String validationMessage = (String) js.executeScript("return arguments[0].validationMessage;", lastNameField);
 
         System.out.println("Validation Message : " + validationMessage);
-        Utility.quitDriver();
 
     }
 
     @Then("Verify that Please fill out this field is visible on the Address field")
-    public void verifyThatPleaseFillOutThisFieldIsVisibleOnTheAddressField() throws InterruptedException {
+    public void verifyThatPleaseFillOutThisFieldIsVisibleOnTheAddressField(){
 
         WebElement addressField = driver.findElement(By.cssSelector("#address1"));
 
@@ -491,12 +488,11 @@ public class RegisterSteps {
         String validationMessage = (String) js.executeScript("return arguments[0].validationMessage;", addressField);
 
         System.out.println("Validation Message : " + validationMessage);
-        Utility.quitDriver();
-        
+
     }
 
     @Then("Verify that Please fill out this field is visible on the State field")
-    public void verifyThatPleaseFillOutThisFieldIsVisibleOnTheStateField() throws InterruptedException {
+    public void verifyThatPleaseFillOutThisFieldIsVisibleOnTheStateField(){
 
         WebElement stateField = driver.findElement(By.xpath("//input[@id='state']"));
 
@@ -504,12 +500,11 @@ public class RegisterSteps {
         String validationMessage = (String) js.executeScript("return arguments[0].validationMessage;", stateField);
 
         System.out.println("Validation Message : " + validationMessage);
-        Utility.quitDriver();
 
     }
 
     @Then("Verify that Please fill out this field is visible on the City field")
-    public void verifyThatPleaseFillOutThisFieldIsVisibleOnTheCityField() throws InterruptedException {
+    public void verifyThatPleaseFillOutThisFieldIsVisibleOnTheCityField(){
 
         WebElement cityField = driver.findElement(By.xpath("//input[@id='city']"));
 
@@ -517,12 +512,11 @@ public class RegisterSteps {
         String validationMessage = (String) js.executeScript("return arguments[0].validationMessage;", cityField);
 
         System.out.println("Validation Message : " + validationMessage);
-        Utility.quitDriver();
 
     }
 
     @Then("Verify that Please fill out this field is visible on the Zipcode field")
-    public void verifyThatPleaseFillOutThisFieldIsVisibleOnTheZipcodeField() throws InterruptedException {
+    public void verifyThatPleaseFillOutThisFieldIsVisibleOnTheZipcodeField(){
 
         WebElement zipField = driver.findElement(By.xpath("//input[@id='zipcode']"));
 
@@ -530,12 +524,11 @@ public class RegisterSteps {
         String validationMessage = (String) js.executeScript("return arguments[0].validationMessage;", zipField);
 
         System.out.println("Validation Message : " + validationMessage);
-        Utility.quitDriver();
 
     }
 
     @Then("Verify that Please fill out this field is visible on the Mobile Number field")
-    public void verifyThatPleaseFillOutThisFieldIsVisibleOnTheMobileNumberField() throws InterruptedException {
+    public void verifyThatPleaseFillOutThisFieldIsVisibleOnTheMobileNumberField(){
 
         WebElement numberField = driver.findElement(By.xpath("//input[@id='mobile_number']"));
 
@@ -543,7 +536,6 @@ public class RegisterSteps {
         String validationMessage = (String) js.executeScript("return arguments[0].validationMessage;", numberField);
 
         System.out.println("Validation Message : " + validationMessage);
-        Utility.quitDriver();
 
     }
 

@@ -70,8 +70,8 @@ Feature: Login
     And verify that home page is visible successfully
     And user click on Login button
     And Verify Login to your account is visible
-    And User fill correct email ""
-    And User fill correct password ""
+    And User leave email field empty
+    And User leave password field empty
     And Click login button
     Then Verify Please fill out this field. is visible on the email field
 
@@ -85,3 +85,16 @@ Feature: Login
     And User fill correct password ""
     And Click login button
     Then Verify that Please include an @ in the email address. email is missing an @. is visible on the email login field
+
+  Scenario: Logout after successful login
+    Given launched browser
+    And navigate to homepage
+    And verify that home page is visible successfully
+    And user click on Login button
+    And Verify Login to your account is visible
+    When User fill correct email "hanif@hanif.hanif"
+    And User fill correct password "hanif@hanif.hanif"
+    And Click login button
+    Then Verify that Logged in as username is visible
+    When User click logout button
+    Then Verify that user is navigated to login page
