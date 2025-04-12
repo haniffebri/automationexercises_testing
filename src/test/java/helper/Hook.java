@@ -14,7 +14,7 @@ public class Hook {
     }
 
     @After
-    public void afterTest() throws InterruptedException {
+    public void afterTest(){
         System.out.println("Finishing Test");
         quitDriver();
     }

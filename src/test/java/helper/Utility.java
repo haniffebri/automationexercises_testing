@@ -14,8 +14,9 @@ public class Utility {
         return driver;
     }
     public static void startDriver() {
-        if (driver == null) { // Cegah multiple instance
+        if (driver == null) { // mencegah multiple instance
             EdgeOptions options = new EdgeOptions();
+            //options.addArguments("--headless");
             options.addArguments("--no-sandbox");
             options.addArguments("--disable-dev-shm-usage");
             options.addArguments("--remote-allow-origins=*");

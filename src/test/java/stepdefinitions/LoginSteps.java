@@ -24,7 +24,7 @@ public class LoginSteps {
 
     }
 
-    @And("Verify Login to your account is visible")
+    @And("verify Login to your account is visible")
     public void verifyLoginToYourAccountIsVisible() {
 
         WebDriverWait wait = new WebDriverWait(Utility.getDriver(), Duration.ofSeconds(10));
@@ -32,7 +32,7 @@ public class LoginSteps {
 
     }
 
-    @When("User fill correct email {string}")
+    @When("user fill correct email {string}")
     public void userFillCorrectEmail(String Email) {
 
         WebElement fillEmail = driver.findElement(By.xpath("//input[@data-qa='login-email']"));
@@ -40,7 +40,7 @@ public class LoginSteps {
 
     }
 
-    @And("User fill correct password {string}")
+    @And("user fill correct password {string}")
     public void userFillCorrectPassword(String Pw) {
 
         WebElement fillPw = driver.findElement(By.xpath("//input[@placeholder='Password']"));
@@ -48,7 +48,7 @@ public class LoginSteps {
 
     }
 
-    @And("Click login button")
+    @And("click login button")
     public void clickLoginButton() {
 
         WebElement loginButton =  driver.findElement(By.xpath("//button[normalize-space()='Login']"));
@@ -56,7 +56,7 @@ public class LoginSteps {
 
     }
 
-    @Then("Verify that Logged in as username is visible")
+    @Then("verify that Logged in as username is visible")
     public void verifyThatLoggedInAsUsernameIsVisible(){
 
         WebElement loggedInElement = driver.findElement(By.xpath("//li[10]//a[1]"));
