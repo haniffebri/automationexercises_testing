@@ -144,7 +144,13 @@ Feature: Contact Us
   Scenario: Submit Contact Form With Login and Without Filling Name Form
     Given launched browser
     And navigate to homepage
-    And verify that Contact Us button is visible successfully
+    And verify that login button is visible successfully
+    When user click on Login button
+    And verify Login to your account is visible
+    And user fill correct email "hanif@hanif.hanif"
+    And user fill correct password "hanif@hanif.hanif"
+    And click login button
+    And verify that Logged in as username is visible
     And user click on Contact Us button
     And Verify GET IN TOUCH is visible
     And User fill email form "hanif@hanif.hanif"
@@ -160,7 +166,13 @@ Feature: Contact Us
   Scenario:  Submit Contact Form With Login and Without Filling Email Form
     Given launched browser
     And navigate to homepage
-    And verify that Contact Us button is visible successfully
+    And verify that login button is visible successfully
+    When user click on Login button
+    And verify Login to your account is visible
+    And user fill correct email "hanif@hanif.hanif"
+    And user fill correct password "hanif@hanif.hanif"
+    And click login button
+    And verify that Logged in as username is visible
     And user click on Contact Us button
     And Verify GET IN TOUCH is visible
     When User fill name form "hanif@hanif.hanif"
@@ -173,7 +185,13 @@ Feature: Contact Us
   Scenario: Submit Contact Form With Login and Without Filling Subject Form
     Given launched browser
     And navigate to homepage
-    And verify that Contact Us button is visible successfully
+    And verify that login button is visible successfully
+    When user click on Login button
+    And verify Login to your account is visible
+    And user fill correct email "hanif@hanif.hanif"
+    And user fill correct password "hanif@hanif.hanif"
+    And click login button
+    And verify that Logged in as username is visible
     And user click on Contact Us button
     And Verify GET IN TOUCH is visible
     When User fill name form "hanif@hanif.hanif"
@@ -189,7 +207,13 @@ Feature: Contact Us
   Scenario: Submit Contact Form With Login and Without Filling Message Form
     Given launched browser
     And navigate to homepage
-    And verify that Contact Us button is visible successfully
+    And verify that login button is visible successfully
+    When user click on Login button
+    And verify Login to your account is visible
+    And user fill correct email "hanif@hanif.hanif"
+    And user fill correct password "hanif@hanif.hanif"
+    And click login button
+    And verify that Logged in as username is visible
     And user click on Contact Us button
     And Verify GET IN TOUCH is visible
     When User fill name form "hanif@hanif.hanif"
@@ -205,7 +229,13 @@ Feature: Contact Us
   Scenario: Submit Contact Form With Login and Without Attaching a File
     Given launched browser
     And navigate to homepage
-    And verify that Contact Us button is visible successfully
+    And verify that login button is visible successfully
+    When user click on Login button
+    And verify Login to your account is visible
+    And user fill correct email "hanif@hanif.hanif"
+    And user fill correct password "hanif@hanif.hanif"
+    And click login button
+    And verify that Logged in as username is visible
     And user click on Contact Us button
     And Verify GET IN TOUCH is visible
     When User fill name form "hanif@hanif.hanif"
