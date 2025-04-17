@@ -21,7 +21,8 @@ public class TestCasesSteps {
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
     By testcases_menu = By.xpath("//a[normalize-space()='Test Cases']");
-    By testcase_1 = By.xpath("//a[normalize-space()='Test Cases']");
+    By testcase_1 = By.xpath("//div[@class='panel-body']/ul/li\"//u[normalize-space()='Test Case 1: Register User']\"undefined");
+    By testcase_2 = By.xpath("//div[@class='panel-body']/ul/li\"//u[contains(text(),'Test Case 2: Login User with correct email and pas')]\"undefined");
     By heading = By.xpath("//b[normalize-space()='Test Cases']");
 
 
@@ -106,5 +107,9 @@ public class TestCasesSteps {
 
     @Then("verify that test steps under Test Case {int} are visible")
     public void verifyThatTestStepsUnderTestCaseAreVisible(int arg0) {
+    }
+
+    @Then("verify that both Test Case {int} and Test Case {int} steps are visible")
+    public void verifyThatBothTestCaseAndTestCaseStepsAreVisible(int arg0, int arg1) {
     }
 }

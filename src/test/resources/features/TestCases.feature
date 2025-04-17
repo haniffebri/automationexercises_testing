@@ -51,3 +51,12 @@ Feature: Test Case
     When user click on "Test Case 1: Register User"
     Then verify that test steps under Test Case 1 are visible
 
+  Scenario: Verify user can open multiple Test Case dropdowns
+    Given launched browser
+    And navigate to homepage
+    And user click on Test Cases button
+    When user click on "Test Case 1: Register User"
+    And user click on "Test Case 2: Login User with correct email and password"
+    Then verify that both Test Case 1 and Test Case 2 steps are visible
+
+
